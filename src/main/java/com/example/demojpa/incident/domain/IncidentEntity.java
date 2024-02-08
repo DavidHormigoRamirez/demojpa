@@ -20,9 +20,9 @@ public class IncidentEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     int id ;
     String title;
-    @ManyToOne
-    @JoinColumn(name="USER_ID",nullable = false)
-    UserEntity user;
+    //@ManyToOne
+    //@JoinColumn(name="USER_ID",nullable = false)
+    //UserEntity user;
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     byte[] image;
@@ -33,9 +33,9 @@ public class IncidentEntity {
     }
 
 
-    public UserEntity getUser() {
+    /*public UserEntity getUser() {
         return user;
-    }
+    }*/
     
     public int getId() {
         return id;

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.lang.NonNull;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demojpa.core.exception.UserAlreadyExistsException;
@@ -13,12 +14,14 @@ import com.example.demojpa.user.domain.UserEntity;
 import com.example.demojpa.user.domain.UserRepository;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService  {
 
     private final UserRepository repository;
+    private final PasswordEncoder encoder;
 
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceImpl(UserRepository repository,PasswordEncoder encoder) {
         this.repository = repository;
+        this.encoder = encoder;
     }
 
     @Override
@@ -29,11 +32,14 @@ public class UserServiceImpl implements UserService {
 
     
     @Override
-    public UserEntity create(UserEntity entity) {
+    public UserEntity create(UserEntity entity) throws UserAlreadyExistsException {
         
         if (repository.existsByEmail(entity.getEmail())) {
             throw new UserAlreadyExistsException();
         }
+
+        String encodedPassword = this.encoder.encode(entity.getPassword());
+        entity.setPassword(encodedPassword);
         return repository.save(entity);
     }
 
