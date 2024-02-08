@@ -24,8 +24,8 @@ public class UserEntity {
     private String surname1;
     private String surname2;
     private String role;
-    /*@OneToMany(targetEntity = IncidentEntity.class, cascade = CascadeType.ALL,mappedBy = "user")
-    private Set<IncidentEntity> incidents;*/
+    @OneToMany(targetEntity = IncidentEntity.class,mappedBy = "user")
+    private Set<IncidentEntity> incidents;
     private String password;
 
     
