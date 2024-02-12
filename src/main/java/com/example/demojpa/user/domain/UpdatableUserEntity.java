@@ -2,10 +2,12 @@ package com.example.demojpa.user.domain;
 
 
 public class UpdatableUserEntity extends UserEntity {
+    
     private String name;
     private String surname1;
     private String surname2;
     private String role;
+
     public UpdatableUserEntity(String name, String surname1, String surname2, String role) {
         this.name = name;
         this.surname1 = surname1;

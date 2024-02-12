@@ -25,9 +25,6 @@ public class SecurityController {
 
     @PostMapping("/register")
     public UserEntity registerUser(@RequestBody UserEntity entity) {
-        //String encodedPassword = this.encoder.encode(entity.getPassword());
-        //System.out.println("La contraseña codificada es " + encodedPassword);
-        //entity.setPassword(encodedPassword);
         return service.create(entity);
     }
 

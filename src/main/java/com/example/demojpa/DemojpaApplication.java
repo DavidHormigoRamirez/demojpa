@@ -28,7 +28,6 @@ public class DemojpaApplication implements CommandLineRunner {
 	try {
 		this.service.create(admin);
 	} catch (UserAlreadyExistsException e) {
-		// TODO: handle exception
 	}
 		
 	}

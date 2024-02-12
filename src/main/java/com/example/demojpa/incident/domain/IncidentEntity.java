@@ -27,15 +27,24 @@ public class IncidentEntity {
     @Column(columnDefinition = "LONGBLOB")
     byte[] image;
     String imageType;
-
-    protected IncidentEntity() {
-
+    
+    public IncidentEntity() {
+        
+    }
+    public IncidentEntity(int id, String title, UserEntity user, byte[] image, String imageType) {
+        this.id = id;
+        this.title = title;
+        this.user = user;
+        this.image = image;
+        this.imageType = imageType;
     }
 
-
-    /*public UserEntity getUser() {
+    public UserEntity getUser() {
         return user;
-    }*/
+    }
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
     
     public int getId() {
         return id;

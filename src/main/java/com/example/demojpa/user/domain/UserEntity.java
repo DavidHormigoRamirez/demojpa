@@ -4,7 +4,6 @@ import java.util.Set;
 
 import com.example.demojpa.incident.domain.IncidentEntity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +25,7 @@ public class UserEntity {
     private String role;
     @OneToMany(targetEntity = IncidentEntity.class,mappedBy = "user")
     private Set<IncidentEntity> incidents;
+
     private String password;
 
     
@@ -84,11 +84,7 @@ public class UserEntity {
         this.role = role;
     }
 
-    
-   /*  public Set<IncidentEntity> getIncidents() {
-        return incidents;
-    }*/
-    
+
 }
 
 

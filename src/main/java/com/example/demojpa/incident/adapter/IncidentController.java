@@ -1,20 +1,21 @@
 package com.example.demojpa.incident.adapter;
 
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
+import com.example.demojpa.core.exception.UserDoesNotExistsException;
+import com.example.demojpa.incident.domain.IncidentDto;
 import com.example.demojpa.incident.domain.IncidentEntity;
 import com.example.demojpa.incident.service.IncidentService;
 
-import java.io.IOException;
-import java.io.InputStream;
+import jakarta.validation.Valid;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -26,7 +27,7 @@ public class IncidentController {
         this.service = service;
     }
     
-    @PostMapping(path="/api/incidents", consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+    /*@PostMapping(path="/api/incidents", consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<IncidentEntity> createIncident(@RequestPart("incident") IncidentEntity incident,@RequestPart("image") MultipartFile image) {
 
         try {
@@ -46,6 +47,26 @@ public class IncidentController {
             return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
         }
         
+    }*/
+
+    @PostMapping("/api/incidents")
+    public IncidentEntity postMethodName(@Valid @RequestBody IncidentDto entity,Errors errors) {
+  
+        if (errors.hasErrors())
+        {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,"Hay errores");
+        }
+        try {
+            IncidentEntity newIncident = service.createIncident(entity);
+            return newIncident;
+        } catch (UserDoesNotExistsException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,"El usuario no existe");
+        }
+        
+
+       
+        
     }
+    
     
 }
